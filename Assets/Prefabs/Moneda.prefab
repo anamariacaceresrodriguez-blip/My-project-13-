@@ -1,0 +1,153 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5396194729832037014
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4287509366446542423}
+  - component: {fileID: 2670692953379178153}
+  - component: {fileID: 8011894177564056202}
+  - component: {fileID: 1956225693028769380}
+  - component: {fileID: 3277999314804226477}
+  m_Layer: 0
+  m_Name: Moneda
+  m_TagString: ContadorMonedas
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4287509366446542423
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396194729832037014}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6966162, y: 0.031752236, z: 0.056920018, w: 0.71447736}
+  m_LocalPosition: {x: -513.53, y: -260.04, z: -23.41}
+  m_LocalScale: {x: 4.0857406, y: 0.100000046, z: 3.7470007}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2670692953379178153
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396194729832037014}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8011894177564056202
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396194729832037014}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 09bdb7111c8dda141a93073f77d83510, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1956225693028769380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396194729832037014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b6be78112251249b79c988418f310d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Moneda
+  sonidoMoneda: {fileID: 8300000, guid: 0cf4d07addfa06646863f0b390f8f886, type: 3}
+  mensajesPosibles:
+  - "\xA1Recuerda reciclar para proteger el r\xEDo!"
+  - No arrojes basura al agua, los animales te lo agradecen.
+  - El agua limpia es vida para el capibara.
+  - "Reduce el uso de pl\xE1sticos de un solo uso."
+  - Cada objeto reciclado cuenta para el medio ambiente.
+  - "Caneca Verde: \"Deposita aqu\xED las c\xE1scaras de banano, ya que son residuos
+    org\xE1nicos que pueden volver a la tierra como abono.\""
+  - "Caneca Negra: \"En la caneca negra va el pa\xF1al, ya que es un residuo que
+    no tiene m\xE1s oportunidad de ser aprovechado y debe ir a disposici\xF3n final.\""
+  - 'Caneca Blanca: "Las botellas y latas van en la caneca blanca, porque son materiales
+    que pueden transformarse y tener una nueva vida."'
+  - "Caneca Verde: \"Todo lo que sea resto de comida o poda va en la verde, porque
+    su naturaleza org\xE1nica permite que se degrade naturalmente.\""
+  - "Caneca Negra: \"Las servilletas sucias y el papel higi\xE9nico van en la negra,
+    pues al estar contaminados ya no sirven para reciclar.\""
+  - "Caneca Blanca: \"El papel y el cart\xF3n limpio van en la blanca, ya que reciclarlos
+    evita que se corten m\xE1s \xE1rboles.\""
+  - "Aviso Especial: \"Recuerda que las llantas no van en ninguna caneca, ya que
+    por su tama\xF1o y material requieren un proceso especial para no da\xF1ar el
+    ecosistema.\""
+  - "Caneca Negra: \"Lo que est\xE9 muy engrasado o sucio va en la negra, porque
+    su estado impide que sea procesado nuevamente.\""
+--- !u!136 &3277999314804226477
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5396194729832037014}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 37.469997
+  m_Direction: 1
+  m_Center: {x: 0.00000006596898, y: -0.000053644155, z: -0.00000009544377}
