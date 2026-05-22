@@ -6,7 +6,7 @@ public class MovimientoHaciaAtras : MonoBehaviour
 
     void Update()
     {
-        // Mueve el objeto hacia la cámara (atrás)
+        // Mueve el objeto hacia la cámara 
         transform.Translate(Vector3.back * velocidad * Time.deltaTime, Space.World);
     }
 }

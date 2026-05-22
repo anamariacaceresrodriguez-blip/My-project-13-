@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
+
 
 public class ControlCapibara : MonoBehaviour
 {
@@ -91,6 +93,12 @@ public class ControlCapibara : MonoBehaviour
         ActualizarUI();
     }
 
+
+    IEnumerator ReiniciarConRetraso()
+    {
+        yield return new WaitForSeconds(1.5f); // Espera 1.5 segundos para que la API responda
+        SceneManager.LoadScene("TuEscena");
+    }
     // --- FUNCIÓN DE SONIDO ---
     void ReproducirSonido(AudioClip clip)
     {
@@ -183,17 +191,24 @@ public class ControlCapibara : MonoBehaviour
         // Lógica para la Basura 
         if (other.CompareTag("Recolectable"))
         {
-            RecogerBasura();
+            // --- PRIMERO CAPTURAMOS EL NOMBRE ANTES DE QUE SE DESTRUYA ---
+            if (ApiBootstrapper.Instancia != null && other.gameObject != null)
+            {
+                string tipoBasura = other.gameObject.name.Replace("(Clone)", "").Trim();
+                ApiBootstrapper.Instancia.basuraAcumuladaEnRio.Add(tipoBasura);
+                Debug.Log($">>> [{tipoBasura}] guardado en la bolsa virtual de Unity.");
+            }
+
+            // Ahora sí, llamamos a tus funciones normales
+            RecogerBasura(other.gameObject);
             ReproducirSonido(sonidoRecoger);
-            Destroy(other.gameObject);  
         }
         // ---  MONEDAS ---
         else if (other.CompareTag("ContadorMonedas"))
         {
-            // RecogerMonedaRio
             if (GestionPuntuacion.instancia != null)
             {
-                GestionPuntuacion.instancia.RecogerMonedaRio(); 
+                GestionPuntuacion.instancia.RecogerMonedaRio();
             }
 
             ReproducirSonido(sonidoMoneda);
@@ -226,37 +241,95 @@ public class ControlCapibara : MonoBehaviour
 
         if (vidasActuales <= 0)
         {
-            if (GestionPuntuacion.instancia != null)
-            {
-                GestionPuntuacion.instancia.ResetearTodo();
-            }
-
-            progresoBasura = 0;
-            volverDeMiniJuego = false;
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+           
+            StartCoroutine(GuardarYReiniciar());
         }
     }
 
-    public void RecogerBasura()
+    IEnumerator GuardarYReiniciar()
     {
+        Debug.Log(">>> Muerte natural del Capibara: Enviando datos finales a Somee...");
+
+        int monedasFinales = 0;
+        int puntosFinales = 0;
+
+        if (GestionPuntuacion.instancia != null)
+        {
+            monedasFinales = GestionPuntuacion.instancia.monedasDelRio;
+            puntosFinales = GestionPuntuacion.instancia.puntosMinijuego;
+        }
+
+        if (ApiBootstrapper.Instancia != null)
+        {
+            
+            ApiBootstrapper.Instancia.GuardarPartidaFinalizada(monedasFinales, puntosFinales, progresoBasura);
+        }
+
+        yield return new WaitForSeconds(1.0f);
+
+        if (GestionPuntuacion.instancia != null)
+        {
+            GestionPuntuacion.instancia.ResetearTodo();
+        }
+
+        progresoBasura = 0;
+        volverDeMiniJuego = false;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void RecogerBasura(GameObject basura)
+    {
+        // Validamos que el objeto no sea nulo antes de destruirlo
+        if (basura != null)
+        {
+            Destroy(basura);
+        }
+
         progresoBasura++;
+        if (fuenteEfectos != null && sonidoRecoger != null) fuenteEfectos.PlayOneShot(sonidoRecoger);
+
         ActualizarBarra();
         ActualizarUI();
-
-        if (animadorCapibara != null) animadorCapibara.SetTrigger("Recolectar");
 
         if (progresoBasura >= metaBasura)
         {
             posicionGuardada = transform.position;
             volverDeMiniJuego = true;
-            Invoke("IrAMiniJuego", 0.5f);
+            IrAMiniJuego();
         }
     }
 
-    void ActualizarBarra() { if (barraProgreso != null) barraProgreso.value = progresoBasura; }
-    void ActualizarUI() { if (textoInterfaz != null) textoInterfaz.text = "Items: " + progresoBasura + " / " + metaBasura; }
-    void IrAMiniJuego() { SceneManager.LoadScene("2d_mini"); }
+
+    void ActualizarBarra()
+    {
+       
+        if (barraProgreso != null)
+        {
+            barraProgreso.value = progresoBasura;
+        }
+    }
+
+    void ActualizarUI()
+    {
+       
+        if (textoInterfaz != null)
+        {
+            textoInterfaz.text = "Items: " + progresoBasura + " / " + metaBasura;
+        }
+    }
+
+    void IrAMiniJuego()
+    {
+     
+
+        StartCoroutine(EsperarYCambiarEscena());
+    }
+
+    private System.Collections.IEnumerator EsperarYCambiarEscena()
+    {
+        yield return new WaitForSeconds(0.3f);
+        SceneManager.LoadScene("2d_mini");
+    }
     void TogglePausa() { estaPausado = !estaPausado; Time.timeScale = estaPausado ? 0 : 1; }
 
     void OnDrawGizmos()

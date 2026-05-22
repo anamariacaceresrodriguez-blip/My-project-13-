@@ -55,9 +55,19 @@ public class GestionPuntuacion : MonoBehaviour
     }
 
     public void GanarPuntos(int cantidad) { puntosMinijuego += cantidad; ActualizarInterfazGrafica(); }
-    public void RecogerMonedaRio() { monedasDelRio += 1; ActualizarInterfazGrafica(); }
+    public void RecogerMonedaRio()
+    {
+        monedasDelRio += 1;
+        ActualizarInterfazGrafica();
 
-    
+       
+        if (LogrosManager.Instancia != null)
+        {
+            LogrosManager.Instancia.ChequearMonedas(monedasDelRio);
+        }
+    }
+
+
     public void ResetearTodo()
     {
         puntosMinijuego = 0;

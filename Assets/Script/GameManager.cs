@@ -53,20 +53,41 @@ public class GameManager : MonoBehaviour
     }
     public void Sumar()
     {
-        // Sumamos al minijuego
         puntosTotales++;
 
-        
         if (GestionPuntuacion.instancia != null)
         {
             GestionPuntuacion.instancia.GanarPuntos(1);
         }
 
+        if (LogrosManager.Instancia != null)
+        {
+            LogrosManager.Instancia.ChequearPuntosMinijuego(puntosTotales);
+        }
+
         ActualizarTodo();
         ReproducirSonido(sonidoAcierto);
 
+        // --- AQUÍ SÍ ES EL MOMENTO REAL DE GUARDAR ---
         if (puntosTotales >= puntosMaximos)
         {
+            Debug.Log(">>> ¡MINIJUEGO COMPLETADO! Enviando puntaje final real: " + this.puntosTotales);
+
+            if (ApiBootstrapper.Instancia != null)
+            {
+                // Aseguramos que el script global se actualice con el valor real de esta escena
+                if (GestionPuntuacion.instancia != null)
+                {
+                    GestionPuntuacion.instancia.puntosMinijuego = this.puntosTotales;
+                }
+
+                int monedas = (GestionPuntuacion.instancia != null) ? GestionPuntuacion.instancia.monedasDelRio : 0;
+                int puntosAEnviar = this.puntosTotales;
+
+                // Esta es la única y verdadera llamada con los datos completos
+                ApiBootstrapper.Instancia.GuardarPartidaFinalizada(monedas, puntosAEnviar, puntosAEnviar);
+            }
+
             SceneManager.LoadScene("2d_mini");
         }
     }

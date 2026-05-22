@@ -664,7 +664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -8.788, z: 0}
   m_AnchorMin: {x: 0.36100003, y: 0.44015434}
   m_AnchorMax: {x: 0.514, y: 0.51778865}
-  m_AnchoredPosition: {x: 122.9, y: -130.47}
+  m_AnchoredPosition: {x: 122.9, y: -166}
   m_SizeDelta: {x: 7, y: 6.2052}
   m_Pivot: {x: 0.95790565, y: 0.9999999}
 --- !u!114 &1470905324
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: eecd1e60b2d0d5044812a3bd66cbbe68, type: 3}
+  m_Texture: {fileID: 2800000, guid: 8db435029d735cd4a93b951f2eed8d14, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0

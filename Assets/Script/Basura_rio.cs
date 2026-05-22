@@ -6,18 +6,17 @@ public class Basura_rio : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            var capibara = other.GetComponent<ControlCapibara>();
+            ControlCapibara capibara = other.GetComponent<ControlCapibara>();
 
             if (capibara != null)
             {
-                capibara.RecogerBasura();
+                // Le pasa esta misma basura como parámetro
+                capibara.RecogerBasura(gameObject);
             }
             else
             {
-                Debug.Log("No se encontró el script ControlCapibara");
+                Debug.Log("No se encontró el script ControlCapibara en el objeto Player");
             }
-
-            Destroy(gameObject);
         }
     }
 }
